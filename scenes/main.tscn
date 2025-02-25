@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://dofhjki5a7cea"]
+
+[ext_resource type="PackedScene" uid="uid://o1s8e3vok7ll" path="res://scenes/board.tscn" id="1_5qd2r"]
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_fl5a8"]
+[ext_resource type="PackedScene" uid="uid://g3edk4ux3ysb" path="res://scenes/game_over_menu.tscn" id="3_ly18h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vmxao"]
+bg_color = Color(0.0811369, 0.690685, 0.641033, 1)
+border_width_left = 5
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r5e3w"]
+bg_color = Color(1, 1, 1, 1)
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_detail = 4
+shadow_size = 15
+shadow_offset = Vector2(5, 5)
+
+[node name="Main" type="Node"]
+script = ExtResource("1_fl5a8")
+
+[node name="Board" parent="." instance=ExtResource("1_5qd2r")]
+position = Vector2(300, 300)
+
+[node name="SidePanel" type="Panel" parent="."]
+custom_minimum_size = Vector2(300, 600)
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vmxao")
+
+[node name="PlayerPanel" type="Label" parent="."]
+anchors_preset = -1
+anchor_right = 0.044
+anchor_bottom = 0.038
+offset_left = 650.0
+offset_top = 200.0
+offset_right = 810.4
+offset_bottom = 377.2
+theme_override_styles/normal = SubResource("StyleBoxFlat_r5e3w")
+
+[node name="NextPlayerLabel" type="Label" parent="."]
+offset_left = 633.0
+offset_top = 87.0
+offset_right = 902.0
+offset_bottom = 151.0
+theme_override_font_sizes/font_size = 40
+text = "Next Player:"
+
+[node name="GameOverMenu" parent="." instance=ExtResource("3_ly18h")]
+process_mode = 2
+visible = false
+
+[connection signal="restart" from="GameOverMenu" to="." method="_on_game_over_menu_restart"]
